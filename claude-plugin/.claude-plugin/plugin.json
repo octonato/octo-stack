@@ -1,0 +1,8 @@
+{
+  "name": "octo",
+  "description": "Personal commands for GitHub workflows, PR review, and conflict resolution",
+  "version": "1.0.0",
+  "author": {
+    "name": "octonato"
+  }
+}
