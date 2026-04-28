@@ -1,11 +1,9 @@
-Submit the PR feedback from the current conversation as a **pending** GitHub review with inline comments on the diff.
+Submit the PR feedback as a **pending** GitHub review with inline comments on the diff.
 
 PR number: $ARGUMENTS
 
 Steps:
-1. Gather review findings from **two sources** (merge both, deduplicating if needed):
-   a. The current conversation (bugs, security concerns, design questions, improvements).
-   b. The most recent `.nogit/pr-feedback-XX.md` file, if one exists. Pick the file with the highest counter number.
+1. Read the review findings from `.nogit/pr-feedback.md`. If that file does not exist, gather findings from the current conversation instead.
 2. Get the PR head commit SHA via `gh api repos/{owner}/{repo}/pulls/{pr_number} --jq '.head.sha'`.
 3. Get the full diff via `git diff <merge-base>...HEAD` to identify the correct file paths and line numbers for each comment.
 4. Build a JSON payload with:
