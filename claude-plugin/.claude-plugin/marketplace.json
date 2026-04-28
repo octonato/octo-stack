@@ -1,0 +1,14 @@
+{
+  "name": "claude-plugin",
+  "owner": {
+    "name": "octonato"
+  },
+  "description": "octonato's personal Claude Code plugins",
+  "plugins": [
+    {
+      "name": "octo",
+      "source": "./",
+      "description": "Personal commands and agents for GitHub workflows, PR review, and conflict resolution"
+    }
+  ]
+}
