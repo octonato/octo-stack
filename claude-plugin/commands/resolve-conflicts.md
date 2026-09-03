@@ -1,3 +1,8 @@
+---
+description: Resolve git merge conflicts — apply the clear ones with a brief rationale, ask about the ambiguous ones
+argument-hint: [optional guidance, e.g. which side to prefer or a file to limit the scope]
+---
+
 Resolve git merge conflicts in the current repository.
 
 ## Instructions

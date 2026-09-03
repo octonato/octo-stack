@@ -1,3 +1,8 @@
+---
+description: Submit PR feedback as a pending GitHub review with inline comments on the diff — never auto-submits
+argument-hint: <PR number>
+---
+
 Submit the PR feedback as a **pending** GitHub review with inline comments on the diff.
 
 PR number: $ARGUMENTS

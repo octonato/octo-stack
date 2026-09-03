@@ -6,9 +6,9 @@
   "description": "octonato's personal Claude Code plugins",
   "plugins": [
     {
-      "name": "octo",
+      "name": "oc",
       "source": "./",
-      "description": "Personal commands and agents for GitHub workflows, PR review, and conflict resolution"
+      "description": "Personal commands for feature workflows, code walk-throughs, GitHub, and writing"
     }
   ]
 }

@@ -24,22 +24,18 @@ You **MUST** consider the user input before proceeding (if not empty).
    > [!CAUTION]
    > ONLY PROCEED IF THE REMOTE IS A GITHUB URL. If not, stop and inform the user.
 
-3. Draft the issue **title** and **body**:
+3. Issues should inform and create awareness. The description should not explain or dictate how to fix the issue — it should only describe what needs to be done at a high level.
+
+4. Draft the issue **title** and **body**:
    - Title: concise, under 80 characters, action-oriented (e.g. "Move session tracking to Consumer for at-least-once guarantees")
    - Body structure:
      ```markdown
      ## Problem
      What is wrong or missing, and why it matters.
-
-     ## Proposed Solution
-     High-level approach to fix it.
-
-     ## Changes Required
-     Bullet list of concrete code changes.
      ```
    - Present the draft to the user for feedback before creating.
 
-4. Create the issue in **web mode** so it opens in the browser for review:
+5. Create the issue in **web mode** so it opens in the browser for review:
    ```
    gh issue create --repo <owner/repo> --web --title "<title>" --body "<body>"
    ```
