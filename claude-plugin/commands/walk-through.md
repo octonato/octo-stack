@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it writes every step to files under .nogit for me to read later; add -i/--interactive to walk me through one step at a time instead. Add -r/--review to fold in located review findings per step.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it writes every step to files under .nogit for me to read later; add -i/--interactive to walk me through one step at a time instead. Add -r/--review to fold in located review findings per step, including my comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 
@@ -41,6 +41,13 @@ While you map the route, **in parallel** dispatch the relevant `pr-review-toolki
 
 Give every reviewer the **same output contract**: each finding must come back **located** — `file:line`, a one-line title, a severity, and a sentence of why — so you can slot it into the right step.
 
+In the **same message**, also dispatch my two rule checks over the same diff:
+
+- **`oc:comment-reviewer`** — content of added or edited code comments.
+- **`oc:proof-reader`** — English of added or edited comments and documentation.
+
+Use the **Agent** tool with `subagent_type` set to the agent's name. If the name isn't available, find its definition under the plugin's `agents/` folder and run a **general-purpose** agent with that file's body as the prompt. Tell each one the scope in one sentence (`commit range <hash>^..HEAD` or `PR #<number>`). They already answer in a located shape — `file:line — severity — rule — "fragment" → fix` — so no extra contract is needed. If both flag the same `file:line`, keep one finding: join the rules with `;`, and if either fix is `delete`, the fix is `delete`.
+
 Collect the findings, drop duplicates, and **bucket each one under the step whose code it touches** (by file and line). Hold them; don't show me the raw review. They surface inside the walk, per step.
 
 **Do not dump this research on me.** Same rule as the route: I see the guided walk with findings woven in, not the reviewers' transcripts.
@@ -60,7 +67,7 @@ For the current step:
 - **Title it** — `Step N: <what this step covers>`.
 - **Point me at the code** — give the concrete locations to open, as bare relative paths with line numbers in plain text (e.g. `src/main/scala/foo/Bar.scala:42`), following my citation rules. These are the pointers *I* navigate to. In changes mode, cite the **post-change** line so I open the file at its current state.
 - **Walk me through what's there** — explain what this code does and how it connects to the previous step and the next one. In changes mode, explain what the change does, why it's there, and how it serves the overall goal of the PR/commit — not just the mechanics of the diff. A few focused paragraphs at most. This is a guided tour, not a full exposition — surface what matters at this stop and leave the rest for my questions.
-- **Surface this step's review notes** (only if `-r`/`--review` is on) — after the explanation, under a short **⚠ Review notes** heading, list the findings bucketed to this step: each as `file:line` + severity + the one-line concern, ordered worst-first. If this step has none, say so in one line. Present these as observations for me to weigh, not edits — this walk explains and flags; it doesn't change code.
+- **Surface this step's review notes** (only if `-r`/`--review` is on) — after the explanation, under a short **⚠ Review notes** heading, list the findings bucketed to this step: each as `file:line` + severity + the one-line concern, ordered worst-first. If this step has none, say so in one line. Findings from the rule checks keep their `→ fix`, so I can apply them later with `/oc:checks-fix`. Present these as observations for me to weigh, not edits — this walk explains and flags; it doesn't change code.
 - **Hand the pen back** — end by inviting me to ask questions about this step, or to say "go ahead" / "next" to move on. Close with a one-line progress marker showing how many steps remain (e.g. `Step 2 of 5 — 3 to go`).
 
 ## How the walk proceeds
