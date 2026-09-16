@@ -1,7 +1,7 @@
 {
   "name": "oc",
   "description": "Personal commands for feature workflows, code walk-throughs, GitHub, and writing",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "octonato"
   }
