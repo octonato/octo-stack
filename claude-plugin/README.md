@@ -14,7 +14,7 @@ The plugin is distributed through a Claude Code marketplace. From inside Claude 
 
 ```
 /plugin marketplace add octonato/claude-plugin
-/plugin install oc@claude-plugin
+/plugin install oc@octo-cogito
 ```
 
 The first command registers the marketplace; the second installs the `oc` plugin from it. Run `/plugin` at any time to manage installed plugins.
@@ -32,7 +32,7 @@ Then, from inside Claude Code:
 
 ```
 /plugin marketplace add /absolute/path/to/claude-plugin
-/plugin install oc@claude-plugin
+/plugin install oc@octo-cogito
 ```
 
 Changes to files under `commands/` are picked up the next time Claude Code loads the plugin.
@@ -40,5 +40,5 @@ Changes to files under `commands/` are picked up the next time Claude Code loads
 ## Uninstall
 
 ```
-/plugin uninstall oc@claude-plugin
+/plugin uninstall oc@octo-cogito
 ```
