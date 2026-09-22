@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it writes every step to files under .nogit for me to read later; add -i/--interactive to walk me through one step at a time instead. Add -r/--review to fold in located review findings per step, including my comment and plain-English rule checks.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it pushes the whole walk to the odeck knowledge base for me to read later; add -i/--interactive to walk me through one step at a time instead. Add -r/--review to fold in located review findings per step, including my comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 
@@ -81,25 +81,36 @@ For the current step:
 
 After the final step, give me a short **recap** — the path (or the set of changes) we walked end to end, in the order we saw it, so I leave with the whole shape in my head. If `-r`/`--review` was on, close with a brief **roll-up of the findings** by severity (worst first), each still pointing at its `file:line`, plus a one-line note of any finding that didn't land on a specific step.
 
-## Auto mode (default): write the walk to files
+## Auto mode (default): push the walk to odeck
 
-This is the **default** — it runs whenever `-i` is **not** passed. You don't walk me interactively; you map the same route (and gather the same `-r`/`--review` findings, if set), then **dump the whole walk to disk** and hand me back a manifest. I review the files myself — or replay them with `/oc:walk-replay <slug>` — and come back with questions later.
+This is the **default** — it runs whenever `-i` is **not** passed. You don't walk me interactively; you map the same route (and gather the same `-r`/`--review` findings, if set), then **push the whole walk to the odeck MCP server as one summary** and hand me back a manifest. I read it myself — or replay it with `/oc:walk-replay <slug>` — and come back with questions later.
 
-**Where.** Everything goes in a per-target folder: `.nogit/walk-through/{slug}/`. Derive `{slug}` from the target so different targets in the same worktree don't clash:
+**The slug.** Derive `{slug}` from the target so different targets don't clash:
 
 - PR number → `pr-<number>` (e.g. `pr-247`).
 - Commit hash / ref → `commit-<short-sha>` (e.g. `commit-a1b2c3d`).
 - Code path / behavior → a short kebab-case slug of the topic (e.g. `login-auth-flow`).
 
-**Freshen the folder first.** Before writing, delete any existing `00-overview.md` and `step-*.md` **inside that folder only** — so re-running the same target replaces its steps cleanly and never leaves a stale `step-07-*.md` behind. Leave every other target's folder, and anything else under `.nogit`, untouched.
+**One summary per walk.** The overview and every step go in a single `push_summary` call — not one summary per step. Read the session id with `echo $CLAUDE_CODE_SESSION_ID` and call `push_summary` with:
 
-**Write the overview** to `.nogit/walk-through/{slug}/00-overview.md`:
+- `title` — `Walk-through {slug}`
+- `session_id` — from the env var
+- `provider` — `claude-code`
+- `summary` — the one-line overall summary
+- `tags` — `walk-through`, the `{slug}`, and the mode (`changes` or `code-path`)
+- `body` — the overview followed by the steps, shaped as below
+
+**The overview** opens the body, above the first step:
 
 - State the **mode and target** up front — `Commit range \`<hash>^..HEAD\``, `PR #<number>`, or `Code path: <description>`.
 - The one-line **overall summary** (in changes mode, what the change accomplishes as a whole; plus the one-line mechanical-churn note if there is any).
-- The **numbered itinerary**, one line per step, each linking its `step-NN-<slug>.md` file.
-- If `-r`/`--review` is on, the **findings roll-up** by severity (worst first), each pointing at its `file:line`, plus any finding that didn't land on a specific step.
+- The **numbered itinerary** under a `### Itinerary` heading, one line per step.
+- If `-r`/`--review` is on, the **findings roll-up** under a `### ⚠ Findings roll-up` heading, by severity (worst first), each pointing at its `file:line`, plus any finding that didn't land on a specific step.
 
-**Write one file per step** to `.nogit/walk-through/{slug}/step-NN-<slug>.md` — `NN` zero-padded (`step-01`, `step-02`, … `step-10`) so the files sort in order, and `<slug>` a short kebab-case name for the step. Each file carries the same **Shape of each step** content — the `Step N` title, the code pointers as bare `path:line`, the guided explanation, and the `⚠ Review notes` block if `-r`/`--review` is on — but **without the interactive tail**: no "hand the pen back", no "go ahead" invitation, no progress marker.
+**One section per step**, each opening with `## Step NN — <title>` — `NN` zero-padded (`Step 01`, `Step 02`, … `Step 10`). `## ` headings mark steps and nothing else, which is how the replay splits the body, so keep every heading inside the overview and inside a step at `###` or deeper. Each section carries the same **Shape of each step** content — the code pointers as bare `path:line`, the guided explanation, and the `⚠ Review notes` block if `-r`/`--review` is on — but **without the interactive tail**: no "hand the pen back", no "go ahead" invitation, no progress marker.
 
-**Then report a manifest and stop.** Print a brief list of the files you wrote (folder path, then each file with its one-line title), and a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the files unless I ask you to.**
+**Re-running a target** pushes a new summary; the server never overwrites and there is nothing to clean up. The replay picks the most recent one.
+
+**Fallback.** If the odeck MCP server is not connected, write the walk to files instead — `.nogit/walk-through/{slug}/00-overview.md` and `.nogit/walk-through/{slug}/step-NN-<slug>.md`, deleting any existing `00-overview.md` and `step-*.md` inside that folder first — and tell me you used the fallback.
+
+**Then report a manifest and stop.** Print the path `push_summary` returned (or the files you wrote), the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the summary unless I ask you to.**

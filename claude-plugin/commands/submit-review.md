@@ -8,7 +8,10 @@ Submit the PR feedback as a **pending** GitHub review with inline comments on th
 PR number: $ARGUMENTS
 
 Steps:
-1. Read the review findings from `.nogit/pr-feedback.md`. If that file does not exist, gather findings from the current conversation instead.
+1. Gather the review findings, taking the first source that has them:
+   - The odeck knowledge base — call `list_summaries`, take the most recent entry tagged `pr-<number>`, and read it with `get_summary`. A walk-through pushed with `-r`/`--review` carries its findings this way.
+   - `.nogit/pr-feedback.md`, when odeck holds nothing for the PR or the server is not connected.
+   - The current conversation, when neither has anything.
 2. Get the PR head commit SHA via `gh api repos/{owner}/{repo}/pulls/{pr_number} --jq '.head.sha'`.
 3. Get the full diff via `git diff <merge-base>...HEAD` to identify the correct file paths and line numbers for each comment.
 4. Build a JSON payload with:
