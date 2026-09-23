@@ -44,25 +44,37 @@ claude mcp add odeck --scope user --env OCTODECK_ROOT=/path/to/summaries -- ~/go
 The plugin is distributed through a Claude Code marketplace. From inside Claude Code:
 
 ```
-/plugin marketplace add octonato/claude-plugin
+/plugin marketplace add octonato/octodeck
 /plugin install oc@octo-cogito
 ```
 
 The first command registers the marketplace; the second installs the `oc` plugin from it. Run `/plugin` at any time to manage installed plugins.
+
+The marketplace lives at the root of the `octodeck` repository, in `.claude-plugin/marketplace.json`. It points at the `claude-plugin/` folder.
+
+### Moving from the old repository
+
+If you installed the plugin from `octonato/claude-plugin`, remove that marketplace first:
+
+```
+/plugin marketplace remove octo-cogito
+/plugin marketplace add octonato/octodeck
+/plugin install oc@octo-cogito
+```
 
 ## Install from a local clone (development)
 
 If you are working on the plugin itself, point Claude Code at your local checkout instead:
 
 ```
-git clone https://github.com/octonato/claude-plugin
-cd claude-plugin
+git clone https://github.com/octonato/octodeck
+cd octodeck
 ```
 
 Then, from inside Claude Code:
 
 ```
-/plugin marketplace add /absolute/path/to/claude-plugin
+/plugin marketplace add /absolute/path/to/octodeck
 /plugin install oc@octo-cogito
 ```
 

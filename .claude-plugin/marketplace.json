@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "oc",
-      "source": "./",
+      "source": "./claude-plugin",
       "description": "Personal commands for feature workflows, code walk-throughs, GitHub, and writing"
     }
   ]
