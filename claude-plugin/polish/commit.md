@@ -8,13 +8,15 @@ The caller names the phase, and may give a note for the commit message.
 
 Stage only the files the phase changed. Never stage `.nogit/`.
 
+Write the comment text first, following the rules in `state.md`.
+
 Write the commit message:
 
 - The subject is `polish: {what the phase fixes}`, in the imperative, under 72 characters.
-- The body lists the phase's findings by ID and title, one per line. Add the caller's note, if there is one.
+- The body is the comment text without its first line, `Claude review: commit {short hash}`. Add the caller's note at the end, if there is one.
 - Add no `Co-Authored-By` line.
 
-Commit with `git commit`. Never push.
+Write the message to `.nogit/polish/commit-msg`. Commit with `git commit -F .nogit/polish/commit-msg`, then delete the file. Never push.
 
 The header's `mode` and `gpg` fields decide signing:
 

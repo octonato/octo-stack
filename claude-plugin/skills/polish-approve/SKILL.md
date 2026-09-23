@@ -29,7 +29,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/polish/commit.md` and follow it for the phase under 
 
 Show me the report from `commit.md`.
 
-If I run `/oc:polish-next` without remarks on the comment, the comment is approved. If I ask for changes, edit the entry in the state file.
+If I run `/oc:polish-next` without remarks on the comment, the comment is approved. If I ask for changes, edit the entry in the state file. When the commit is still `HEAD` and not pushed, also amend its message to match.
 
 Then tell me the next step:
 

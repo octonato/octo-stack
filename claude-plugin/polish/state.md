@@ -6,11 +6,10 @@ The `polish-*` commands keep all their state for one review in a single Markdown
 
 - The state file is `.nogit/polish/{slug}.md` in the repository that owns the target.
 - `.nogit/polish/current` holds the slug of the active review, on one line.
-- The slug names the target:
-  - a PR: `pr-{number}`, for example `pr-5726`
-  - a commit hash: the short hash, for example `6e77038`
-  - a range: `{from}..{to}` with short hashes, for example `6e77038..a1b2c3d`
-  - no target: the branch name, with `/` replaced by `-`
+- The slug is the branch topic in kebab case, for example `retry-backoff` for `feature/retry-backoff`:
+  - For a PR, use the PR's head branch. For any other target, use the current branch.
+  - Take the last `/` segment of the branch name. Lowercase it, and replace every run of other characters than letters and digits with `-`.
+  - On `main`, `master` or a detached `HEAD`, build the topic from the PR title or the newest commit subject instead. Keep it to four words at most.
 
 Every command resolves the state file the same way:
 
@@ -103,7 +102,7 @@ A phase's `tests` field names the test command and the base: `HEAD` when the run
 
 ## Comment entries
 
-Each committed phase gets one entry under **Comments**. Only the text between the markers is posted.
+Each committed phase gets one entry under **Comments**. Only the text between the markers is posted. The commit body holds a copy of the same text. `polish-publish` posts the entry, so the two may drift.
 
 ```markdown
 ### P3: {phase theme}
