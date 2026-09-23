@@ -14,10 +14,11 @@ The prompt tells you which changes to look at. It names one or more of:
 - **Uncommitted changes** — staged, unstaged, and untracked files from `git status`. Diff with `git diff HEAD` and read untracked files whole.
 - **A commit range** — `<hash>^..HEAD` (the hash is inclusive). Diff with `git diff <hash>^ HEAD`.
 - **A PR number** — diff with `gh pr diff <number>`.
+- **A file** — read the file whole. When the prompt names a start and an end marker, judge only the text between each pair of markers.
 
 When the prompt combines a range with the uncommitted changes, look at both.
 
-Only judge **added or modified lines**. Pre-existing text the diff didn't touch is out of scope, even when it breaks the rules.
+For a diff, only judge **added or modified lines**. Pre-existing text the diff didn't touch is out of scope, even when it breaks the rules. For a file, judge all the text in scope.
 
 Prose is:
 
