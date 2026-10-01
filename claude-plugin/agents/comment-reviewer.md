@@ -1,6 +1,6 @@
 ---
 name: comment-reviewer
-description: Checks every code comment added or edited in a diff — inline, javadoc, scaladoc, docstrings — against my comment rules in CLAUDE.md. Reports located findings; never edits.
+description: Checks every code comment added or edited in a diff — inline, javadoc, scaladoc, docstrings — against the comment rules in CLAUDE.md. Reports located findings; never edits.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---

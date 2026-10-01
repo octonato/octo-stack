@@ -1,6 +1,6 @@
 # Polish commit
 
-This procedure commits one phase and queues its PR comment. `polish-approve` and `polish-all` both use it. The state file format is in `state.md`, next to this file.
+This procedure commits one phase. `polish-approve` and `polish-all` both use it. The state file format is in `state.md`, next to this file.
 
 The caller names the phase, and may give a note for the commit message.
 
@@ -8,13 +8,26 @@ The caller names the phase, and may give a note for the commit message.
 
 Stage only the files the phase changed. Never stage `.nogit/`.
 
-Write the comment text first, following the rules in `state.md`.
-
 Write the commit message:
 
 - The subject is `polish: {what the phase fixes}`, in the imperative, under 72 characters.
-- The body is the comment text without its first line, `Claude review: commit {short hash}`. Add the caller's note at the end, if there is one.
+- The body follows the format and rules below. Add the caller's note at the end, if there is one.
 - Add no `Co-Authored-By` line.
+
+```markdown
+**Finding:** {one or two sentences}
+
+**Fix:** {a short paragraph}
+```
+
+Rules for the body:
+
+- Do not repeat the commit subject.
+- **Finding** states the problem for a reader who has not seen the review. Use one or two sentences.
+- **Fix** states what the commit changes. Use a short paragraph.
+- When a phase covers several findings, write one **Finding** paragraph per finding.
+- Follow the plain-English rules in my CLAUDE.md.
+- Write GitHub Markdown. Put code names in backticks: classes (`AroundClassName`), methods, fields, properties (`property-names`), files and commands. Use a list when the fix has several separate parts.
 
 Write the message to `.nogit/polish/commit-msg`. Commit with `git commit -F .nogit/polish/commit-msg`, then delete the file. Never push.
 
@@ -29,12 +42,11 @@ The header's `mode` and `gpg` fields decide signing:
 
 - Set the phase's `status: committed`, its `commit` to the short hash, and its `subject` to the commit subject.
 - Set each of its findings to `status: fixed`, except those already `left out`.
-- Append a comment entry under **Comments**, in the format `state.md` describes, with `status: pending` and `url: none`.
 
 ## Report
 
 Report:
 
 - the commit's short hash and subject
-- the comment text, between the markers
+- the commit body
 - the signing note, if there is one

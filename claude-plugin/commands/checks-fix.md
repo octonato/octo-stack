@@ -1,5 +1,5 @@
 ---
-description: Run my session checks — comment-reviewer and proof-reader in parallel — then apply every finding through the fixer agent. Add -i/--interactive to pick which findings to apply.
+description: Run the session checks — comment-reviewer and proof-reader in parallel — then apply every finding through the fixer agent. Add -i/--interactive to pick which findings to apply.
 argument-hint: [optional commit hash to widen the scope from that commit (inclusive) to HEAD, on top of the uncommitted changes] [-i|--interactive]
 ---
 

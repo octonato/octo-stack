@@ -1,5 +1,5 @@
 ---
-description: Check the code for TODO-AI / FIXME-AI / QUESTION-AI comments I left for you — fix or answer each one, and remove the tag once I approve
+description: Check the code for TODO-AI / FIXME-AI / QUESTION-AI comments left for Claude — fix or answer each one, and remove the tag once the user approves
 argument-hint: [--all to scan the whole repo instead of just uncommitted files]
 ---
 

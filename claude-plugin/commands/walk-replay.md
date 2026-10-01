@@ -1,5 +1,5 @@
 ---
-description: Replay a walk-through pushed by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when I say "go ahead". Presents the steps as written; it does not summarize them.
+description: Replay a walk-through pushed by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when the user says "go ahead". Presents the steps as written; it does not summarize them.
 argument-hint: [a walk-through slug (e.g. pr-247), OR a summary path from list_summaries]
 ---
 

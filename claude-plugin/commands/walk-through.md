@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it pushes the whole walk to the odeck knowledge base for me to read later; add -i/--interactive to walk me through one step at a time instead. Add -r/--review to fold in located review findings per step, including my comment and plain-English rule checks.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it pushes the whole walk to the odeck knowledge base to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 

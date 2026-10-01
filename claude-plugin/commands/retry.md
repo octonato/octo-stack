@@ -1,5 +1,5 @@
 ---
-description: Re-attempt the action I just rejected, optionally with an adaptation
+description: Re-attempt the action the user just rejected, optionally with an adaptation
 argument-hint: [optional change to apply before retrying]
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: proof-reader
-description: Checks the English in prose added or edited in a diff — comments, doc comments, Markdown and other documentation — against my plain-English rules in CLAUDE.md. Reports located findings; never edits.
+description: Checks the English in prose added or edited in a diff — comments, doc comments, Markdown and other documentation — against the plain-English rules in CLAUDE.md. Reports located findings; never edits.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---

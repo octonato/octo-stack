@@ -3,12 +3,12 @@
   "owner": {
     "name": "octonato"
   },
-  "description": "octonato's personal Claude Code plugins",
+  "description": "Claude Code plugins that keep the engineer in charge and sharp",
   "plugins": [
     {
       "name": "oc",
       "source": "./claude-plugin",
-      "description": "Personal commands for feature workflows, code walk-throughs, GitHub, and writing"
+      "description": "Commands for feature workflows, code walk-throughs, GitHub, and writing"
     }
   ]
 }

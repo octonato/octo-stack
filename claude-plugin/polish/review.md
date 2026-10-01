@@ -53,4 +53,4 @@ Some findings raise a behaviour question that only I can answer. For example: "s
 
 ## 5. Write the state file
 
-Create `.nogit/polish/{slug}.md` with the header, the **Findings** section and the **Left out** and **Open questions** entries from step 4. Leave `gpg` and `gh` as `unknown`, and set `summary: none`. Write the slug to `.nogit/polish/current`.
+Create `.nogit/polish/{slug}.md` with the header, the **Findings** section and the **Left out** and **Open questions** entries from step 4. Leave `gpg` as `unknown`. Write the slug to `.nogit/polish/current`.

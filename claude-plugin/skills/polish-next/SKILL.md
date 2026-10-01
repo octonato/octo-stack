@@ -1,7 +1,7 @@
 ---
 name: polish-next
 disable-model-invocation: true
-description: Show and implement the next phase of the active polish review, run its tests, and stop for my review
+description: Show and implement the next phase of the active polish review, run its tests, and stop for review
 argument-hint: [optional phase ID, e.g. P3, or empty for the next planned phase]
 ---
 
@@ -83,4 +83,4 @@ When no phase is planned:
 1. If **Open questions** has open entries, ask them one at a time. Record each answer.
    - If an answer needs a code change, add a new planned phase for it, set its findings to `status: open`, and tell me to run `/oc:polish-next`.
    - If an answer needs no change, set the deferred finding to `status: left out` with the answer as the reason.
-2. When no question is open, tell me to push the commits, then run `/oc:polish-publish`.
+2. When no question is open, tell me to push the commits.

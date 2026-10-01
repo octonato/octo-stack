@@ -9,8 +9,7 @@ Review my changes and plan the fixes. This is the first step of the polish workf
 
 1. `/oc:polish-start`: review and plan
 2. `/oc:polish-next`: implement the next phase
-3. `/oc:polish-approve`: commit the phase and queue its PR comment
-4. `/oc:polish-publish`: post the comments after I push
+3. `/oc:polish-approve`: commit the phase
 
 The target is: $ARGUMENTS
 

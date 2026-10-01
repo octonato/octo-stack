@@ -2,7 +2,7 @@
 name: polish-status
 disable-model-invocation: true
 model: sonnet
-description: Show where the active polish review stands — phases, commits, comments and open questions
+description: Show where the active polish review stands — phases, commits and open questions
 argument-hint: [optional slug to inspect, or empty for the active one]
 ---
 
@@ -22,9 +22,8 @@ Read the state file as it is now. Then show:
 - **Target:** the target, the branch, the PR and the mode.
 - **Findings:** a count by status: open, fixed, deferred, blocked, left out.
 - **Phases:** one line per phase: ID, theme, status, commit and test result. Flag a `stale` test result, and a committed phase whose test base is not the parent of its commit.
-- **Comments:** a count of pending and posted comments.
 - **Open questions:** each open question, with its finding.
-- **Environment:** `gpg` and `gh`, when they are not `unknown`.
-- **Next step:** the single most useful thing to do next. For example: "run `/oc:polish-next` for P3", "approve P2 with `/oc:polish-approve`", "push, then run `/oc:polish-publish`", or "answer Q1 and Q2".
+- **Environment:** `gpg`, when it is not `unknown`.
+- **Next step:** the single most useful thing to do next. For example: "run `/oc:polish-next` for P3", "approve P2 with `/oc:polish-approve`", "push the commits", or "answer Q1 and Q2".
 
 Keep it short. Never change any file from here.

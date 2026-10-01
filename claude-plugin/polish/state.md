@@ -32,8 +32,6 @@ The file has these sections, in this order. Keep the field names exactly as show
 - pr: {number | none}
 - mode: {step | all}
 - gpg: {unknown | available | unavailable}
-- gh: {unknown | sandboxed | unsandboxed}
-- summary: {URL of the summary comment | none}
 
 ## Findings
 
@@ -52,7 +50,7 @@ The file has these sections, in this order. Keep the field names exactly as show
 
 ### P1: {theme}
 - findings: {F1, F3}
-- status: {planned | in review | committed | posted}
+- status: {planned | in review | committed}
 - commit: {short hash | none}
 - subject: {commit subject | none}
 - tests: {command} @ {base short hash} → {passed | failed | running | stale | not run}
@@ -68,10 +66,6 @@ The file has these sections, in this order. Keep the field names exactly as show
 ## Open questions
 
 - Q1 (F4): {question} — {open | answered: the answer}
-
-## Comments
-
-{comment entries, in the format below}
 ```
 
 Leave a section empty when it has no entries. Keep its heading.
@@ -90,8 +84,7 @@ A phase's `status` means:
 
 - `planned`: not started
 - `in review`: implemented and waiting for my approval
-- `committed`: committed, with its comment queued
-- `posted`: its comment is on the PR
+- `committed`: committed
 
 A phase's `tests` field names the test command and the base: `HEAD` when the run started. The result means:
 
@@ -99,33 +92,3 @@ A phase's `tests` field names the test command and the base: `HEAD` when the run
 - `passed` or `failed`: the run finished
 - `stale`: the phase's code changed after the run started
 - `not run`: no run yet
-
-## Comment entries
-
-Each committed phase gets one entry under **Comments**. Only the text between the markers is posted. The commit body holds a copy of the same text. `polish-publish` posts the entry, so the two may drift.
-
-```markdown
-### P3: {phase theme}
-- commit: {short hash}
-- subject: {commit subject}
-- status: {pending | posted}
-- url: {URL of the posted comment | none}
-
-<!-- comment -->
-Claude review: commit {short hash}
-
-**Finding:** {one or two sentences}
-
-**Fix:** {a short paragraph}
-<!-- /comment -->
-```
-
-Rules for the comment text:
-
-- The first line is `Claude review: commit {short hash}`.
-- Do not repeat the commit subject.
-- **Finding** states the problem for a reader who has not seen the review. Use one or two sentences.
-- **Fix** states what the commit changes. Use a short paragraph.
-- When a phase covers several findings, write one **Finding** paragraph per finding.
-- Follow the plain-English rules in my CLAUDE.md.
-- Write GitHub Markdown. Put code names in backticks: classes (`AroundClassName`), methods, fields, properties (`property-names`), files and commands. Use a list when the fix has several separate parts.

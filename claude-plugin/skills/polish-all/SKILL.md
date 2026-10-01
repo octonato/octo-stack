@@ -1,7 +1,7 @@
 ---
 name: polish-all
 disable-model-invocation: true
-description: Review my own PR and fix it autonomously — one commit per finding, questions held until the end, never pushes
+description: Review the user's own PR and fix it autonomously — one commit per finding, questions held until the end, never pushes
 argument-hint: [PR number or URL | commit hash (inclusive) | range a..b | empty for the current branch]
 ---
 
@@ -79,7 +79,7 @@ Dispatch a **general-purpose** agent with the Agent tool and `model: "sonnet"`. 
 
 - the full path of `commit.md` and `state.md`, as this skill shows them
 - the path of the state file and the phase ID
-- a short summary of the change, per finding, for the comment text
+- a short summary of the change, per finding, for the commit body
 
 Tell it to follow `commit.md` for that phase. Wait for it to finish, and check that the working tree is clean apart from `.nogit/`.
 
@@ -110,6 +110,6 @@ Then ask the open questions, one at a time. Record each answer in the state file
 When no question is open:
 
 - If you added phases, tell me to run `/oc:polish-next` for them.
-- Otherwise, tell me to push the commits, then run `/oc:polish-publish`.
+- Otherwise, tell me to push the commits.
 
 The autonomy ends here.

@@ -2,11 +2,11 @@
 name: polish-approve
 disable-model-invocation: true
 model: sonnet
-description: Commit the phase under review in the active polish review, and queue its PR comment — never pushes
+description: Commit the phase under review in the active polish review — never pushes
 argument-hint: [optional note for the commit message]
 ---
 
-I approve the phase under review. Commit it and queue its PR comment.
+I approve the phase under review. Commit it.
 
 My note for the commit message, if any: $ARGUMENTS
 
@@ -29,9 +29,9 @@ Read `${CLAUDE_PLUGIN_ROOT}/polish/commit.md` and follow it for the phase under 
 
 Show me the report from `commit.md`.
 
-If I run `/oc:polish-next` without remarks on the comment, the comment is approved. If I ask for changes, edit the entry in the state file. When the commit is still `HEAD` and not pushed, also amend its message to match.
+If I run `/oc:polish-next` without remarks on the commit message, the message is approved. If I ask for changes and the commit is still `HEAD` and not pushed, amend its message.
 
 Then tell me the next step:
 
 - If a phase is still planned, run `/oc:polish-next`.
-- Otherwise, run `/oc:polish-next` to go through the open questions, or push and run `/oc:polish-publish` when none are open.
+- Otherwise, run `/oc:polish-next` to go through the open questions, or push the commits when none are open.

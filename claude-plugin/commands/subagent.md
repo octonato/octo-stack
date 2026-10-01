@@ -1,5 +1,5 @@
 ---
-description: Spawn a background agent to run a task in parallel while I keep working — it stays alive and accessible for me to open, read, and interact with; the main thread gets only a short launch/finish note, never the agent's report. Pass a plain task, or another slash command (e.g. /oc:subagent /oc:walk-through 247 -r) to run that command in the background.
+description: Spawn a background agent to run a task in parallel while the user keeps working — it stays alive and accessible for the user to open, read, and interact with; the main thread gets only a short launch/finish note, never the agent's report. Pass a plain task, or another slash command (e.g. /oc:subagent /oc:walk-through 247 -r) to run that command in the background.
 argument-hint: [a task to run in the background, OR a slash command with its arguments]
 ---
 
