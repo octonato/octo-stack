@@ -1,5 +1,5 @@
 ---
-description: Interactively author a phased execution plan from the spec — files impacted, sequencing, to .features/{name}/plan.md
+description: Interactively author a phased execution plan from the spec — files impacted, sequencing, to .octo-stack/features/{name}/plan.md
 argument-hint: [optional guidance for the plan, or empty to resume]
 ---
 
@@ -10,7 +10,7 @@ The text after the command is: $ARGUMENTS
 
 ## Resolve the active feature
 
-1. Read the active feature name from `.features/current` (one-line file at the project root); the directory is `.features/{name}/`. If it's missing, tell me to run `/feat-spec` first, then stop.
+1. Read the active feature name from `.octo-stack/features/current` (a one-line file); the directory is `.octo-stack/features/{name}/`. If it's missing, tell me to run `/feat-spec` first, then stop.
 2. Require `spec.md` in that directory. If it doesn't exist, tell me the spec comes first (`/feat-spec`) and stop.
 
 ## Each time you run
@@ -23,7 +23,7 @@ If anything in the spec is too thin to plan against, ask me — or note it under
 
 ## Plan shape
 
-Write `.features/{name}/plan.md`:
+Write `.octo-stack/features/{name}/plan.md`:
 
 - **Plan for `{feature}`** — one line, and a pointer to `spec.md`.
 - **Phases** — break the work into small, reviewable phases. Number them. For **each phase**:

@@ -9,7 +9,7 @@ The text after the command is: $ARGUMENTS
 
 ## Resolve the active feature
 
-1. Read the active feature name from `.features/current` (one-line file at the project root); the directory is `.features/{name}/`. If it's missing, tell me to run `/feat-spec` first, then stop.
+1. Read the active feature name from `.octo-stack/features/current` (a one-line file); the directory is `.octo-stack/features/{name}/`. If it's missing, tell me to run `/feat-spec` first, then stop.
 2. **Re-read fresh**: `spec.md` and `plan.md` (including my latest inline edits). These define what to build and the phase boundaries. If `plan.md` is missing, tell me to run `/feat-plan` first, then stop.
 
 ## Figure out the slice

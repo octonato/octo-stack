@@ -12,7 +12,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/polish/state.md` for the state file format.
 
 ## Resolve the state file
 
-1. If `$ARGUMENTS` names a slug, read `.nogit/polish/{slug}.md`.
+1. If `$ARGUMENTS` names a slug, read `.octo-stack/polish/{slug}.md`.
 2. Otherwise resolve the active state file as `state.md` describes.
 
 ## Report

@@ -15,7 +15,7 @@ Find the PR for the branch with `gh pr view --json number` when the target is no
 
 If the diff is empty, say `Nothing to review.` and stop.
 
-Build the slug as `state.md` describes. If `.nogit/polish/{slug}.md` already exists, ask me whether to resume it or to start over, then stop. To start over, rename the old file to `{slug}.{date}.md` and continue.
+Build the slug as `state.md` describes. If `.octo-stack/polish/{slug}.md` already exists, ask me whether to resume it or to start over, then stop. To start over, rename the old file to `{slug}.{date}.md` and continue.
 
 ## 2. Run the reviewers
 
@@ -53,4 +53,4 @@ Some findings raise a behaviour question that only I can answer. For example: "s
 
 ## 5. Write the state file
 
-Create `.nogit/polish/{slug}.md` with the header, the **Findings** section and the **Left out** and **Open questions** entries from step 4. Leave `gpg` as `unknown`. Write the slug to `.nogit/polish/current`.
+Create `.octo-stack/polish/{slug}.md` with the header, the **Findings** section and the **Left out** and **Open questions** entries from step 4. Leave `gpg` as `unknown`. Write the slug to `.octo-stack/polish/current`.

@@ -1,5 +1,5 @@
 ---
-description: Interactively author a feature spec — research the code, clarify, draft to .features/{name}/spec.md
+description: Interactively author a feature spec — research the code, clarify, draft to .octo-stack/features/{name}/spec.md
 argument-hint: [task description for a new feature, or empty to resume the active one]
 ---
 
@@ -10,12 +10,12 @@ The text after the command is: $ARGUMENTS
 
 ## Resolve the active feature
 
-1. **No `$ARGUMENTS`** → resume the active feature: read the feature name from `.features/current` (a one-line file at the project root); the directory is `.features/{name}/`. If that file is missing, ask me for a task description and stop.
+1. **No `$ARGUMENTS`** → resume the active feature: read the feature name from `.octo-stack/features/current` (a one-line file); the directory is `.octo-stack/features/{name}/`. If that file is missing, ask me for a task description and stop.
 2. **`$ARGUMENTS` given:**
    - If a feature is already active **and** `$ARGUMENTS` reads as answers/guidance for the current spec (not a brand-new task), treat it as refinement of the active feature.
    - Otherwise this is a **new feature**. Determine the name: if I offered an explicit `kebab-case` name (a leading single token), use it; otherwise generate a **short** kebab-case name from the task description. Tell me the name you chose in one line, then proceed.
-3. For a new feature, create `.features/{name}/` at the project root (cwd). Use my raw words as the seed for the first `spec.md` draft — don't persist them separately.
-4. Record the active feature by writing just the name (no trailing newline) to `.features/current`: `printf %s '<name>' > .features/current`. Also ensure `.features/current` is gitignored (it's personal active-state); add it to `.gitignore` if it isn't already.
+3. For a new feature, create `.octo-stack/features/{name}/` at the project root (cwd). Use my raw words as the seed for the first `spec.md` draft — don't persist them separately.
+4. Record the active feature by writing just the name (no trailing newline) to `.octo-stack/features/current`: `printf %s '<name>' > .octo-stack/features/current`.
 
 ## Each time you run
 
@@ -26,7 +26,7 @@ Then do **source-code research** to ground the spec in reality: use the **Explor
 Decide:
 
 - **If the task is unclear or underspecified** — ask me your clarifying questions *first*, before drafting. Keep them sharp and few. Don't write a speculative spec to paper over ambiguity.
-- **If it's clear enough** — draft (or revise) `.features/{name}/spec.md`.
+- **If it's clear enough** — draft (or revise) `.octo-stack/features/{name}/spec.md`.
 
 ## Spec shape
 

@@ -4,8 +4,8 @@ The `polish-*` commands keep all their state for one review in a single Markdown
 
 ## Location
 
-- The state file is `.nogit/polish/{slug}.md` in the repository that owns the target.
-- `.nogit/polish/current` holds the slug of the active review, on one line.
+- The state file is `.octo-stack/polish/{slug}.md` in the repository that owns the target.
+- `.octo-stack/polish/current` holds the slug of the active review, on one line.
 - The slug is the branch topic in kebab case, for example `retry-backoff` for `feature/retry-backoff`:
   - For a PR, use the PR's head branch. For any other target, use the current branch.
   - Take the last `/` segment of the branch name. Lowercase it, and replace every run of other characters than letters and digits with `-`.
@@ -13,8 +13,8 @@ The `polish-*` commands keep all their state for one review in a single Markdown
 
 Every command resolves the state file the same way:
 
-1. Read `.nogit/polish/current`. The state file is `.nogit/polish/{slug}.md`.
-2. If `current` is missing, list the files under `.nogit/polish/` so I can pick one, then stop. If the folder is missing, tell me to run `/oc:polish-start` or `/oc:polish-all`, then stop.
+1. Read `.octo-stack/polish/current`. The state file is `.octo-stack/polish/{slug}.md`.
+2. If `current` is missing, list the files under `.octo-stack/polish/` so I can pick one, then stop. If the folder is missing, tell me to run `/oc:polish-start` or `/oc:polish-all`, then stop.
 
 Re-read the state file at the start of every command. I may have edited it by hand.
 

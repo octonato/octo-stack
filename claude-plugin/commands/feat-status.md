@@ -7,9 +7,9 @@ Give me a quick, read-only status of a feature. **Don't write anything** — no 
 
 ## Resolve which feature
 
-1. If `$ARGUMENTS` names a feature, inspect `.features/{that-name}/`.
-2. Otherwise read `.features/current` (one-line file at the project root) for the active name.
-3. If neither resolves, list the subdirectories under `.features/` (if any) so I can pick, then stop. If `.features/` doesn't exist, tell me to start with `/feat-spec`.
+1. If `$ARGUMENTS` names a feature, inspect `.octo-stack/features/{that-name}/`.
+2. Otherwise read `.octo-stack/features/current` (a one-line file) for the active name.
+3. If neither resolves, list the subdirectories under `.octo-stack/features/` (if any) so I can pick, then stop. If `.octo-stack/features/` doesn't exist, tell me to start with `/feat-spec`.
 
 ## Read fresh and report
 

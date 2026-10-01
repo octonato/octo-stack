@@ -21,7 +21,7 @@ Read these three files before you start:
 - `${CLAUDE_PLUGIN_ROOT}/polish/review.md`: the review procedure
 - `${CLAUDE_PLUGIN_ROOT}/polish/commit.md`: the commit procedure
 
-The working tree must be clean, apart from `.nogit/`. If it is not, list the changed files and stop.
+The working tree must be clean, apart from `.octo-stack/`. If it is not, list the changed files and stop.
 
 ## Review
 
@@ -81,7 +81,7 @@ Dispatch a **general-purpose** agent with the Agent tool and `model: "sonnet"`. 
 - the path of the state file and the phase ID
 - a short summary of the change, per finding, for the commit body
 
-Tell it to follow `commit.md` for that phase. Wait for it to finish, and check that the working tree is clean apart from `.nogit/`.
+Tell it to follow `commit.md` for that phase. Wait for it to finish, and check that the working tree is clean apart from `.octo-stack/`.
 
 Then take the next phase.
 

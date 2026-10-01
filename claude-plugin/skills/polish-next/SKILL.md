@@ -18,7 +18,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/polish/state.md` for the state file format. Then res
 3. Otherwise take the first phase with `status: planned`.
 4. If no phase is planned, go to **No phase left** below.
 
-The working tree must be clean, apart from `.nogit/`. If it is not, list the changed files and stop. I may be working on them.
+The working tree must be clean, apart from `.octo-stack/`. If it is not, list the changed files and stop. I may be working on them.
 
 ## Show the phase
 

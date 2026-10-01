@@ -6,7 +6,7 @@ The caller names the phase, and may give a note for the commit message.
 
 ## Commit
 
-Stage only the files the phase changed. Never stage `.nogit/`.
+Stage only the files the phase changed. Never stage `.octo-stack/`.
 
 Write the commit message:
 
@@ -29,7 +29,7 @@ Rules for the body:
 - Follow the plain-English rules in my CLAUDE.md.
 - Write GitHub Markdown. Put code names in backticks: classes (`AroundClassName`), methods, fields, properties (`property-names`), files and commands. Use a list when the fix has several separate parts.
 
-Write the message to `.nogit/polish/commit-msg`. Commit with `git commit -F .nogit/polish/commit-msg`, then delete the file. Never push.
+Write the message to `.octo-stack/polish/commit-msg`. Commit with `git commit -F .octo-stack/polish/commit-msg`, then delete the file. Never push.
 
 The header's `mode` and `gpg` fields decide signing:
 
