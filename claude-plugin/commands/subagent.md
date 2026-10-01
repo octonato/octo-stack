@@ -13,7 +13,7 @@ If `$ARGUMENTS` is empty, ask me what the background agent should do and stop.
 
 Look at `$ARGUMENTS`:
 
-- **If it starts with a slash command** (e.g. `/oc:walk-through 247 -r`, `/oc:save-summary`) → the agent's job is to **run that command** with the arguments that follow it. Have the agent invoke the command through its own `Skill` tool (the `oc:*` commands are registered as skills — `/oc:walk-through` → skill `oc:walk-through`, args `247 -r`). If for some reason it can't invoke the command that way, tell it to locate the command's definition and follow it. Pass the arguments through **verbatim**, including any flags.
+- **If it starts with a slash command** (e.g. `/oc:walk-through 247 -r`, `/oc:save`) → the agent's job is to **run that command** with the arguments that follow it. Have the agent invoke the command through its own `Skill` tool (the `oc:*` commands are registered as skills — `/oc:walk-through` → skill `oc:walk-through`, args `247 -r`). If for some reason it can't invoke the command that way, tell it to locate the command's definition and follow it. Pass the arguments through **verbatim**, including any flags.
 - **Otherwise** → the agent's job is the **plain task** described in `$ARGUMENTS`. Give it the task as-is.
 
 ## How to launch it
@@ -35,5 +35,5 @@ The single hard requirement: the agent must **stay alive and accessible** so I c
 A brief completion notification is welcome; a report is not.
 
 - **When it completes, at most one short line** — e.g. `bg task "<label>" finished — open it to read`. **Never** paste, summarize, or quote its result into this thread, on completion or when I ask. If I ask whether it's done, a bare "still running" / "finished — open it" is the whole answer.
-- **Store the output only if the task asked for it.** If `$ARGUMENTS` says to save the output (e.g. "…and save it", "…write it down"), have the agent push it to the odeck MCP server with `push_summary`. Set `title` to the task name, `session_id` to `$CLAUDE_CODE_SESSION_ID`, `provider` to `claude-code`, and `tags` to include `bg`. If the server is not connected, it falls back to `.nogit/bg/<slug>.md` (`<slug>` a short kebab-case name for the task). That's the agent's doing, not a report from you.
+- **Store the output only if the task asked for it.** If `$ARGUMENTS` says to save the output (e.g. "…and save it", "…write it down"), have the agent push it to the odeck MCP server with `push_summary`. Set `title` to the task name, `session_id` to `$CLAUDE_CODE_SESSION_ID`, `provider` to `claude-code`, and `tags` to include `bg`. If the server is not connected, it falls back to `.octo-stack/bg/<slug>.md` (`<slug>` a short kebab-case name for the task). That's the agent's doing, not a report from you.
 - If the agent ran a chained slash command that stores its own output (like `/oc:walk-through` in auto mode), that stored summary is the output — I'll read it or open the subagent. Don't echo it here.

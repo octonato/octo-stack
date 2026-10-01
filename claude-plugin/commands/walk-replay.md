@@ -1,9 +1,9 @@
 ---
-description: Replay a walk-through pushed by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when the user says "go ahead". Presents the steps as written; it does not summarize them.
+description: Replay a walk-through saved by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when the user says "go ahead". Presents the steps as written; it does not summarize them.
 argument-hint: [a walk-through slug (e.g. pr-247), OR a summary path from list_summaries]
 ---
 
-I want you to **replay a walk-through** that `/oc:walk-through` pushed to the odeck knowledge base. Present the pre-written steps to me **one at a time**, exactly as they were written. Do **not** summarize, condense, or rephrase a step — I wrote these on purpose and I want to read them **as-is**. You are the pager here, not the author.
+I want you to **replay a walk-through** that `/oc:walk-through` saved. Present the pre-written steps to me **one at a time**, exactly as they were written. Do **not** summarize, condense, or rephrase a step — I wrote these on purpose and I want to read them **as-is**. You are the pager here, not the author.
 
 What I gave you: $ARGUMENTS
 
@@ -15,7 +15,7 @@ A walk is one summary, titled `Walk-through {slug}` and tagged `walk-through`. R
 - **A stored path** (anything with a `/`, as `list_summaries` returns it) → pass it straight to `get_summary`.
 - **Empty** → call `list_summaries` and show the entries tagged `walk-through`. If there's exactly one, use it. If there are several, show them and ask which; stop until I pick. If there are none, tell me there's nothing to replay and stop.
 
-**Fallback.** If the odeck MCP server is not connected, look for the walk on disk instead — `.nogit/walk-through/{slug}/`, with `00-overview.md` first and `step-NN-*.md` in numeric order — and tell me you used the fallback. Everything below works the same way, reading each file where it would read a section.
+**Fallback.** If the odeck MCP server is not connected, read the walk from `.octo-stack/walk-through/{slug}.md` instead, and tell me you used the fallback. When `$ARGUMENTS` is empty, list the files in that folder in place of `list_summaries`. Everything below works the same way.
 
 If nothing resolves, or the summary has no `## Step` sections, say so and stop — don't invent steps.
 

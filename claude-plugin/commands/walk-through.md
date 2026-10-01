@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it pushes the whole walk to the odeck knowledge base to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to the odeck knowledge base, or to .octo-stack/walk-through/ without it, to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 
@@ -111,6 +111,6 @@ This is the **default** — it runs whenever `-i` is **not** passed. You don't w
 
 **Re-running a target** pushes a new summary; the server never overwrites and there is nothing to clean up. The replay picks the most recent one.
 
-**Fallback.** If the odeck MCP server is not connected, write the walk to files instead — `.nogit/walk-through/{slug}/00-overview.md` and `.nogit/walk-through/{slug}/step-NN-<slug>.md`, deleting any existing `00-overview.md` and `step-*.md` inside that folder first — and tell me you used the fallback.
+**Fallback.** If the odeck MCP server is not connected, write the same body to `.octo-stack/walk-through/{slug}.md` instead — `mkdir -p .octo-stack/walk-through` first, and overwrite any existing file — and tell me you used the fallback.
 
-**Then report a manifest and stop.** Print the path `push_summary` returned (or the files you wrote), the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the summary unless I ask you to.**
+**Then report a manifest and stop.** Print the path `push_summary` returned (or the file you wrote), the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the summary unless I ask you to.**
