@@ -1,6 +1,6 @@
 ---
 description: Replay a walk-through saved by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when the user says "go ahead". Presents the steps as written; it does not summarize them.
-argument-hint: [a walk-through slug (e.g. pr-247), OR a summary path from list_summaries]
+argument-hint: [a walk-through slug (e.g. pr-247), OR a file path]
 ---
 
 I want you to **replay a walk-through** that `/oc:walk-through` saved. Present the pre-written steps to me **one at a time**, exactly as they were written. Do **not** summarize, condense, or rephrase a step — I wrote these on purpose and I want to read them **as-is**. You are the pager here, not the author.
@@ -9,19 +9,17 @@ What I gave you: $ARGUMENTS
 
 ## Find the walk
 
-A walk is one summary, titled `Walk-through {slug}` and tagged `walk-through`. Resolve `$ARGUMENTS` to one:
+A walk is one file, `.octo-stack/walk-through/{slug}.md`. Resolve `$ARGUMENTS` to one:
 
-- **A slug** (e.g. `pr-247`, `commit-a1b2c3d`, `login-auth-flow`) → call `list_summaries`, keep the entries tagged `walk-through` and that slug, and take the **most recent** one. Read it with `get_summary`.
-- **A stored path** (anything with a `/`, as `list_summaries` returns it) → pass it straight to `get_summary`.
-- **Empty** → call `list_summaries` and show the entries tagged `walk-through`. If there's exactly one, use it. If there are several, show them and ask which; stop until I pick. If there are none, tell me there's nothing to replay and stop.
+- **A slug** (e.g. `pr-247`, `commit-a1b2c3d`, `login-auth-flow`) → read `.octo-stack/walk-through/{slug}.md`.
+- **A file path** (anything with a `/`) → read that file.
+- **Empty** → list the files in `.octo-stack/walk-through/`. If there's exactly one, use it. If there are several, show them and ask which; stop until I pick. If there are none, tell me there's nothing to replay and stop.
 
-**Fallback.** If the odeck MCP server is not connected, read the walk from `.octo-stack/walk-through/{slug}.md` instead, and tell me you used the fallback. When `$ARGUMENTS` is empty, list the files in that folder in place of `list_summaries`. Everything below works the same way.
-
-If nothing resolves, or the summary has no `## Step` sections, say so and stop — don't invent steps.
+If nothing resolves, or the file has no `## Step` sections, say so and stop — don't invent steps.
 
 ## Know the running order
 
-The summary body is the script. Split it on its `## ` headings:
+The body after the frontmatter is the script. Split it on its `## ` headings:
 
 - Everything **before the first `## Step`** heading is the overview.
 - Each **`## Step NN — <title>`** section is one step, in numeric `NN` order (`Step 01`, `Step 02`, … `Step 10`) — sort by the number, not lexically.

@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to the odeck knowledge base, or to .octo-stack/walk-through/ without it, to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to .octo-stack/walk-through/ to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 
@@ -81,9 +81,9 @@ For the current step:
 
 After the final step, give me a short **recap** — the path (or the set of changes) we walked end to end, in the order we saw it, so I leave with the whole shape in my head. If `-r`/`--review` was on, close with a brief **roll-up of the findings** by severity (worst first), each still pointing at its `file:line`, plus a one-line note of any finding that didn't land on a specific step.
 
-## Auto mode (default): push the walk to odeck
+## Auto mode (default): save the walk
 
-This is the **default** — it runs whenever `-i` is **not** passed. You don't walk me interactively; you map the same route (and gather the same `-r`/`--review` findings, if set), then **push the whole walk to the odeck MCP server as one summary** and hand me back a manifest. I read it myself — or replay it with `/oc:walk-replay <slug>` — and come back with questions later.
+This is the **default** — it runs whenever `-i` is **not** passed. You don't walk me interactively; you map the same route (and gather the same `-r`/`--review` findings, if set), then **write the whole walk to one file** and hand me back a manifest. I read it myself — or replay it with `/oc:walk-replay <slug>` — and come back with questions later.
 
 **The slug.** Derive `{slug}` from the target so different targets don't clash:
 
@@ -91,14 +91,15 @@ This is the **default** — it runs whenever `-i` is **not** passed. You don't w
 - Commit hash / ref → `commit-<short-sha>` (e.g. `commit-a1b2c3d`).
 - Code path / behavior → a short kebab-case slug of the topic (e.g. `login-auth-flow`).
 
-**One summary per walk.** The overview and every step go in a single `push_summary` call — not one summary per step. Read the session id with `echo $CLAUDE_CODE_SESSION_ID` and call `push_summary` with:
+**One file per walk.** The overview and every step go in a single file, `.octo-stack/walk-through/{slug}.md` — not one file per step. Run `mkdir -p .octo-stack/walk-through` first. Read the session id with `echo $CLAUDE_CODE_SESSION_ID`, and open the file with YAML frontmatter:
 
 - `title` — `Walk-through {slug}`
+- `date` — today, as `YYYY-MM-DD`
 - `session_id` — from the env var
-- `provider` — `claude-code`
 - `summary` — the one-line overall summary
 - `tags` — `walk-through`, the `{slug}`, and the mode (`changes` or `code-path`)
-- `body` — the overview followed by the steps, shaped as below
+
+The body follows the frontmatter: the overview, then the steps, shaped as below.
 
 **The overview** opens the body, above the first step:
 
@@ -109,8 +110,6 @@ This is the **default** — it runs whenever `-i` is **not** passed. You don't w
 
 **One section per step**, each opening with `## Step NN — <title>` — `NN` zero-padded (`Step 01`, `Step 02`, … `Step 10`). `## ` headings mark steps and nothing else, which is how the replay splits the body, so keep every heading inside the overview and inside a step at `###` or deeper. Each section carries the same **Shape of each step** content — the code pointers as bare `path:line`, the guided explanation, and the `⚠ Review notes` block if `-r`/`--review` is on — but **without the interactive tail**: no "hand the pen back", no "go ahead" invitation, no progress marker.
 
-**Re-running a target** pushes a new summary; the server never overwrites and there is nothing to clean up. The replay picks the most recent one.
+**Re-running a target** overwrites its file.
 
-**Fallback.** If the odeck MCP server is not connected, write the same body to `.octo-stack/walk-through/{slug}.md` instead — `mkdir -p .octo-stack/walk-through` first, and overwrite any existing file — and tell me you used the fallback.
-
-**Then report a manifest and stop.** Print the path `push_summary` returned (or the file you wrote), the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the summary unless I ask you to.**
+**Then report a manifest and stop.** Print the path of the file you wrote, the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the file unless I ask you to.**

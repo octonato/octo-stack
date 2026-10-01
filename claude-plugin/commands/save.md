@@ -1,9 +1,9 @@
 ---
-description: Summarize the research/analysis from this session into the odeck knowledge base, or into .octo-stack/ without it
+description: Summarize the research/analysis from this session into .octo-stack/
 argument-hint: [optional: what to summarize, or a title hint]
 ---
 
-Summarize the research, analysis, or findings from our session into a single Markdown summary, and store it with the **odeck MCP server** (`push_summary`).
+Summarize the research, analysis, or findings from our session into a single Markdown summary, and write it to `.octo-stack/` in the current working directory.
 
 I often pull a summary into a **new session in another repo**, so it must be **self-contained**: it has to make sense to a reader (or a fresh Claude) who has *no access to this repo* and *none of our conversation history*. Don't refer to "the file above", "as we discussed", or local paths the other repo won't have — spell out the context, names, and conclusions inline.
 
@@ -14,21 +14,18 @@ I often pull a summary into a **new session in another repo**, so it must be **s
 
 ## How to store it
 
-1. **Derive a title from the content** — short but specific enough to recognize later, e.g. `gRPC retry semantics`, `Auth token refresh analysis`. If `$ARGUMENTS` looks like a title hint, use it. The server slugs the title into the file name.
+1. **Derive a title from the content** — short but specific enough to recognize later, e.g. `gRPC retry semantics`, `Auth token refresh analysis`. If `$ARGUMENTS` looks like a title hint, use it.
 
 2. Read the session id: `echo $CLAUDE_CODE_SESSION_ID`.
 
-3. Call `push_summary` with:
+3. Write the summary to `.octo-stack/<name>.md` — `<name>` the kebab-case title, `mkdir -p .octo-stack` first. Never overwrite: if the name is taken, add a numeric suffix.
+
+4. Open the file with YAML frontmatter, then the body shaped as below:
    - `title` — from step 1
-   - `body` — the full Markdown, shaped as below
+   - `date` — today, as `YYYY-MM-DD`
    - `session_id` — from step 2
-   - `provider` — `claude-code`
-   - `summary` — a one-line abstract for list views
+   - `summary` — a one-line abstract
    - `tags` — a few free-form topics
-
-4. Don't look for an existing summary first. The server never overwrites: a taken name gets a numeric suffix.
-
-**Fallback.** If the odeck MCP server is not connected, write the summary to `.octo-stack/<name>.md` instead — `<name>` the kebab-case title, `mkdir -p .octo-stack` first. If the name is taken, add a numeric suffix. Tell me you used the fallback.
 
 ## Shape of the summary
 
@@ -37,4 +34,4 @@ I often pull a summary into a **new session in another repo**, so it must be **s
 - Embed the **conclusions and the reasoning/evidence** behind them — not just a pointer to where they came from. Include relevant code snippets, command outputs, links, or version/commit references *inline* so the summary stands alone.
 - Keep it tight and skimmable. This is a working artifact, not prose.
 
-After saving, give me a one-line confirmation with the path `push_summary` returned, or the file you wrote.
+After saving, give me a one-line confirmation with the path of the file you wrote.
