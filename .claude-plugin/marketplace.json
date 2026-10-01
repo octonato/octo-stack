@@ -8,7 +8,7 @@
     {
       "name": "oc",
       "source": "./claude-plugin",
-      "description": "Commands for feature workflows, code walk-throughs, GitHub, and writing"
+      "description": "Commands for code walk-throughs, GitHub, comment and prose checks, and session workflow"
     }
   ]
 }

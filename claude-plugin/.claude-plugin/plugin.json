@@ -1,6 +1,6 @@
 {
   "name": "oc",
-  "description": "Commands for feature workflows, code walk-throughs, GitHub, and writing",
+  "description": "Commands for code walk-throughs, GitHub, comment and prose checks, and session workflow",
   "version": "1.3.0",
   "author": {
     "name": "octonato"
