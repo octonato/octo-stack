@@ -26,7 +26,7 @@ The plugin is distributed through a Claude Code marketplace. From inside Claude 
 
 ```
 /plugin marketplace add octonato/octo-stack
-/plugin install oc@octo-cogito
+/plugin install oc@octo-stack
 ```
 
 The first command registers the marketplace; the second installs the `oc` plugin from it. Run `/plugin` at any time to manage installed plugins.
@@ -46,7 +46,7 @@ Then, from inside Claude Code:
 
 ```
 /plugin marketplace add /absolute/path/to/octo-stack
-/plugin install oc@octo-cogito
+/plugin install oc@octo-stack
 ```
 
 Claude Code picks up changes under `claude-plugin/commands/`, `claude-plugin/skills/` and `claude-plugin/agents/` the next time it loads the plugin.
@@ -54,12 +54,12 @@ Claude Code picks up changes under `claude-plugin/commands/`, `claude-plugin/ski
 ## Uninstall
 
 ```
-/plugin uninstall oc@octo-cogito
+/plugin uninstall oc@octo-stack
 ```
 
 ## Commands
 
-Commands are invoked with the `oc:` prefix — `/oc:walk-through`, `/oc:feat-spec`, and so on.
+Commands are invoked with the `oc:` prefix — `/oc:walk-through`, `/oc:polish`, and so on.
 
 | Command | Description |
 |---|---|
@@ -67,10 +67,6 @@ Commands are invoked with the `oc:` prefix — `/oc:walk-through`, `/oc:feat-spe
 | `/oc:check-inbox` | Check the code for TODO-AI / FIXME-AI / QUESTION-AI comments left for Claude — fix or answer each one, and remove the tag once the user approves |
 | `/oc:checks` | Run the session checks — comment-reviewer (comment rules) and proof-reader (plain-English rules) in parallel over the changed code — and report located findings. Changes nothing; /oc:checks-fix applies them. |
 | `/oc:checks-fix` | Run the session checks — comment-reviewer and proof-reader in parallel — then apply every finding through the fixer agent. Add -i/--interactive to pick which findings to apply. |
-| `/oc:feat-implement` | Implement a slice of the active feature — a phase, the tests, or a named part — per spec & plan |
-| `/oc:feat-plan` | Interactively author a phased execution plan from the spec — files impacted, sequencing, to .octo-stack/features/{name}/plan.md |
-| `/oc:feat-spec` | Interactively author a feature spec — research the code, clarify, draft to .octo-stack/features/{name}/spec.md |
-| `/oc:feat-status` | Show where the active feature stands — spec/plan state, phases, and what's done vs left |
 | `/oc:gh.issue-create` | Create a GitHub issue from a natural language description. Opens in browser for review before submission. |
 | `/oc:proceed` | Implement what we discussed in this session, then run comment-reviewer and proof-reader in parallel and apply every finding through the fixer agent. |
 | `/oc:resolve-conflicts` | Resolve git merge conflicts — apply the clear ones with a brief rationale, ask about the ambiguous ones. Add -i/--interactive to get a report on why the conflicts exist and approve each chunk before it is applied. |
@@ -116,7 +112,6 @@ The plugin keeps its files in `.octo-stack/`, in the current working directory:
 - `.octo-stack/walk-through/`: walk-throughs
 - `.octo-stack/bg/`: output of background agents started with `/oc:subagent`
 - `.octo-stack/polish/`: polish review state
-- `.octo-stack/features/`: feature specs and plans
 
 These files are for you, not for the project. Add `.octo-stack/` to your global gitignore so no project commits them:
 
