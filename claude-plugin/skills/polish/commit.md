@@ -1,14 +1,14 @@
 # Polish commit
 
-This procedure commits one phase. `polish-approve` and `polish-all` both use it. The state file format is in `state.md`, next to this file.
+This procedure commits one phase. The `polish` skill uses it. The state file format is in `state.md`, next to this file.
 
 The caller names the phase, and may give a note for the commit message.
 
-## Commit
+The message file is `.octo-stack/polish/{slug}.commit-msg`.
 
-Stage only the files the phase changed. Never stage `.octo-stack/`.
+## Write the message
 
-Write the commit message:
+Write the commit message to the message file:
 
 - The subject is `polish: {what the phase fixes}`, in the imperative, under 72 characters.
 - The body follows the format and rules below. Add the caller's note at the end, if there is one.
@@ -29,11 +29,15 @@ Rules for the body:
 - Follow the plain-English rules in my CLAUDE.md.
 - Write GitHub Markdown. Put code names in backticks: classes (`AroundClassName`), methods, fields, properties (`property-names`), files and commands. Use a list when the fix has several separate parts.
 
-Write the message to `.octo-stack/polish/commit-msg`. Commit with `git commit -F .octo-stack/polish/commit-msg`, then delete the file. Never push.
+## Commit
+
+Stage only the files the phase changed. Never stage `.octo-stack/`.
+
+Commit with `git commit -F {message file}`, then delete the message file. Never edit the message file in this step. Never push.
 
 The header's `mode` and `gpg` fields decide signing:
 
-- `mode: all`: always commit with `--no-gpg-sign`.
+- `mode: auto`: always commit with `--no-gpg-sign`.
 - `gpg: unknown`: commit normally. If the commit fails on signing, commit again with `--no-gpg-sign` and set `gpg: unavailable`. Say in the report that the commits need signing later. If the commit succeeds, set `gpg: available`.
 - `gpg: unavailable`: commit with `--no-gpg-sign`. Do not mention it again.
 - `gpg: available`: commit normally.

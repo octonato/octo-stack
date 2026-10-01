@@ -1,6 +1,6 @@
 # Polish state file
 
-The `polish-*` commands keep all their state for one review in a single Markdown file. A new session reads this file to pick up the work.
+The `polish` skill keeps all its state for one review in a single Markdown file. A new session reads this file to pick up the work.
 
 ## Location
 
@@ -11,16 +11,16 @@ The `polish-*` commands keep all their state for one review in a single Markdown
   - Take the last `/` segment of the branch name. Lowercase it, and replace every run of other characters than letters and digits with `-`.
   - On `main`, `master` or a detached `HEAD`, build the topic from the PR title or the newest commit subject instead. Keep it to four words at most.
 
-Every command resolves the state file the same way:
+Resolve the active state file this way:
 
 1. Read `.octo-stack/polish/current`. The state file is `.octo-stack/polish/{slug}.md`.
-2. If `current` is missing, list the files under `.octo-stack/polish/` so I can pick one, then stop. If the folder is missing, tell me to run `/oc:polish-start` or `/oc:polish-all`, then stop.
+2. If `current` is missing, list the files under `.octo-stack/polish/` so I can pick one, then stop. If the folder is missing, tell me to run `/oc:polish`, then stop.
 
-Re-read the state file at the start of every command. I may have edited it by hand.
+Re-read the state file before each phase. I may have edited it by hand.
 
 ## Layout
 
-The file has these sections, in this order. Keep the field names exactly as shown. Commands find entries by their headings and field names.
+The file has these sections, in this order. Keep the field names exactly as shown. The skill finds entries by their headings and field names.
 
 ```markdown
 # Polish: {target}
@@ -30,7 +30,7 @@ The file has these sections, in this order. Keep the field names exactly as show
 - branch: {local branch}
 - remote: {remote}/{branch}
 - pr: {number | none}
-- mode: {step | all}
+- mode: {auto | interactive}
 - gpg: {unknown | available | unavailable}
 
 ## Findings
@@ -48,12 +48,12 @@ The file has these sections, in this order. Keep the field names exactly as show
 
 ## Plan
 
-### P1: {theme}
-- findings: {F1, F3}
+### P1: {finding title}
+- findings: {F1}
 - status: {planned | in review | committed}
 - commit: {short hash | none}
 - subject: {commit subject | none}
-- tests: {command} @ {base short hash} → {passed | failed | running | stale | not run}
+- tests: {command} @ {base short hash} → {passed | failed | not run}
 
 ## Left out
 
@@ -83,12 +83,7 @@ A finding's `status` means:
 A phase's `status` means:
 
 - `planned`: not started
-- `in review`: implemented and waiting for my approval
+- `in review`: implemented and waiting for my approval, in `interactive` mode only
 - `committed`: committed
 
-A phase's `tests` field names the test command and the base: `HEAD` when the run started. The result means:
-
-- `running`: the run is in the background
-- `passed` or `failed`: the run finished
-- `stale`: the phase's code changed after the run started
-- `not run`: no run yet
+A phase's `tests` field names the test command and the base: `HEAD` when the run started. The result is `passed`, `failed`, or `not run`.

@@ -1,6 +1,6 @@
 # Polish review
 
-This procedure reviews a target and writes the findings to the state file. `polish-start` and `polish-all` both use it. The state file format is in `state.md`, next to this file.
+This procedure reviews a target and writes the findings to the state file. The `polish` skill uses it. The state file format is in `state.md`, next to this file.
 
 ## 1. Resolve the target
 
@@ -15,7 +15,7 @@ Find the PR for the branch with `gh pr view --json number` when the target is no
 
 If the diff is empty, say `Nothing to review.` and stop.
 
-Build the slug as `state.md` describes. If `.octo-stack/polish/{slug}.md` already exists, ask me whether to resume it or to start over, then stop. To start over, rename the old file to `{slug}.{date}.md` and continue.
+Build the slug as `state.md` describes. If `.octo-stack/polish/{slug}.md` already exists, ask me whether to resume it or to start over, then stop. To resume, write the slug to `.octo-stack/polish/current` and skip the rest of this procedure. To start over, rename the old file to `{slug}.{date}.md` and continue.
 
 ## 2. Run the reviewers
 

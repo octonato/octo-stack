@@ -83,7 +83,7 @@ After the final step, give me a short **recap** — the path (or the set of chan
 
 ## Auto mode (default): save the walk
 
-This is the **default** — it runs whenever `-i` is **not** passed. You don't walk me interactively; you map the same route (and gather the same `-r`/`--review` findings, if set), then **write the whole walk to one file** and hand me back a manifest. I read it myself — or replay it with `/oc:walk-replay <slug>` — and come back with questions later.
+This is the **default** — it runs whenever `-i` is **not** passed. Do not walk me through it. Map the same route and gather the same `-r`/`--review` findings, if set. Write the whole walk to one file and hand me a manifest. I read it myself — or replay it with `/oc:walk-replay <slug>` — and come back with questions later.
 
 **The slug.** Derive `{slug}` from the target so different targets don't clash:
 
@@ -112,4 +112,4 @@ The body follows the frontmatter: the overview, then the steps, shaped as below.
 
 **Re-running a target** overwrites its file.
 
-**Then report a manifest and stop.** Print the path of the file you wrote, the step count, and each step with its one-line title, plus a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the file unless I ask you to.**
+**Then report a manifest and stop.** Print the path of the file, the step count, and each step's one-line title. Add a one-line reminder that I can page through them with `/oc:walk-replay <slug>`. Say nothing else — keep the mapped route and any findings in context so that when I reload this session and ask about a step, you can answer from where we left off. **Answer follow-up questions in the terminal, on the step I ask about; don't rewrite the file unless I ask you to.**
