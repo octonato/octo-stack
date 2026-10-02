@@ -67,6 +67,7 @@ Commands are invoked with the `oc:` prefix — `/oc:walk-through`, `/oc:polish`,
 | `/oc:check-inbox` | Check the code for TODO-AI / FIXME-AI / QUESTION-AI comments left for Claude — fix or answer each one, and remove the tag once the user approves |
 | `/oc:checks` | Run the session checks — comment-reviewer (comment rules) and proof-reader (plain-English rules) in parallel over the changed code — and report located findings. Changes nothing; /oc:checks-fix applies them. |
 | `/oc:checks-fix` | Run the session checks — comment-reviewer and proof-reader in parallel — then apply every finding through the fixer agent. Add -i/--interactive to pick which findings to apply. |
+| `/oc:code-review-pr` | Review a colleague's PR with /pr-review-toolkit:review-pr and save only the change requests to .octo-stack/. Offers to open them as a PR comment on GitHub, never submits. |
 | `/oc:gh.issue-create` | Create a GitHub issue from a natural language description. Opens in browser for review before submission. |
 | `/oc:proceed` | Implement what we discussed in this session, then run comment-reviewer and proof-reader in parallel and apply every finding through the fixer agent. |
 | `/oc:resolve-conflicts` | Resolve git merge conflicts — apply the clear ones with a brief rationale, ask about the ambiguous ones. Add -i/--interactive to get a report on why the conflicts exist and approve each chunk before it is applied. |
@@ -110,6 +111,7 @@ The plugin keeps its files in `.octo-stack/`, in the current working directory:
 
 - `.octo-stack/*.md`: summaries saved with `/oc:save`
 - `.octo-stack/walk-through/`: walk-throughs
+- `.octo-stack/code-review-pr/`: change requests from `/oc:code-review-pr`
 - `.octo-stack/bg/`: output of background agents started with `/oc:subagent`
 - `.octo-stack/polish/`: polish review state
 
