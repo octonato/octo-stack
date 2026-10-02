@@ -10,12 +10,12 @@ The message file is `.octo-stack/polish/{slug}.commit-msg`.
 
 Write the commit message to the message file:
 
-- The subject is `polish: {what the phase fixes}`, in the imperative, under 72 characters.
+- The subject is `polish({IDs}): {what the phase fixes}`, in the imperative, under 72 characters. `{IDs}` lists the phase's finding IDs, comma-separated: `polish(F1):`, or `polish(F2,F5):`.
 - The body follows the format and rules below. Add the caller's note at the end, if there is one.
 - Add no `Co-Authored-By` line.
 
 ```markdown
-**Finding:** {one or two sentences}
+**Finding {ID}:** {one or two sentences}
 
 **Fix:** {a short paragraph}
 ```
@@ -25,6 +25,7 @@ Rules for the body:
 - Do not repeat the commit subject.
 - **Finding** states the problem for a reader who has not seen the review. Use one or two sentences.
 - **Fix** states what the commit changes. Use a short paragraph.
+- Label each **Finding** with its ID, for example `**Finding F1:**`.
 - When a phase covers several findings, write one **Finding** paragraph per finding.
 - Follow the plain-English rules in my CLAUDE.md.
 - Write GitHub Markdown. Put code names in backticks: classes (`AroundClassName`), methods, fields, properties (`property-names`), files and commands. Use a list when the fix has several separate parts.
