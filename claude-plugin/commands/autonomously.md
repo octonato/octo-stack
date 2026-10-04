@@ -54,7 +54,7 @@ If the build, the tests or the formatter check fail, fix the cause and run them 
 
 ### 4. Commit
 
-Stage only the files the phase changed. Never stage `.octo-stack/`.
+Stage only the files the phase changed. Never stage `.nogit/`.
 
 Write the commit message:
 

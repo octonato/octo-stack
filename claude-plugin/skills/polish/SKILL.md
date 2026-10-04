@@ -29,7 +29,7 @@ Read these three files before you start:
 - `${CLAUDE_PLUGIN_ROOT}/skills/polish/review.md`: the review procedure
 - `${CLAUDE_PLUGIN_ROOT}/skills/polish/commit.md`: the commit procedure
 
-The working tree must be clean, apart from `.octo-stack/`. If it is not, list the changed files and stop.
+The working tree must be clean, apart from `.nogit/`. If it is not, list the changed files and stop.
 
 ## Review
 
@@ -94,7 +94,7 @@ In `auto` mode, dispatch a **general-purpose** agent with the Agent tool and `mo
 - the path of the state file and the phase ID
 - a short summary of the change, per finding, for the commit body
 
-Tell it to follow `commit.md` for that phase: first **Write the message**, then **Commit**. Wait for it to finish, and check that the working tree is clean apart from `.octo-stack/`.
+Tell it to follow `commit.md` for that phase: first **Write the message**, then **Commit**. Wait for it to finish, and check that the working tree is clean apart from `.nogit/`.
 
 In `interactive` mode, follow **Write the message** in `commit.md` yourself. Set the phase to `status: in review`. Then show me:
 

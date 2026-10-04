@@ -1,9 +1,9 @@
 ---
-description: Review a colleague's PR with /pr-review-toolkit:review-pr and save only the change requests to .octo-stack/. Offers to open them as a PR comment on GitHub, never submits.
+description: Review a colleague's PR with /pr-review-toolkit:review-pr and save only the change requests to .nogit/. Offers to open them as a PR comment on GitHub, never submits.
 argument-hint: <PR number or URL>
 ---
 
-Review a colleague's PR and write the change requests to `.octo-stack/`.
+Review a colleague's PR and write the change requests to `.nogit/`.
 
 PR: $ARGUMENTS
 
@@ -35,8 +35,8 @@ Merge findings that point at the same problem.
 
 ## 4. Write the change requests
 
-Write `.octo-stack/code-review-pr/pr-<number>.md`.
-Run `mkdir -p .octo-stack/code-review-pr` first.
+Write `.nogit/code-review-pr/pr-<number>.md`.
+Run `mkdir -p .nogit/code-review-pr` first.
 If the file exists, rename it to `pr-<number>.<YYYY-MM-DD>.md` before you write.
 
 The file holds the change requests and nothing else.
@@ -74,14 +74,14 @@ Ask whether to open it as a PR comment on GitHub.
 If I approve:
 
 1. Copy the comment to the clipboard. It starts with the line `:robot: says...`, then a blank line, then the file:
-   `{ printf ':robot: says...\n\n'; cat .octo-stack/code-review-pr/pr-<number>.md; } | pbcopy`
+   `{ printf ':robot: says...\n\n'; cat .nogit/code-review-pr/pr-<number>.md; } | pbcopy`
 2. Open the comment form: `gh pr comment <number> --web`.
 3. Tell me the comment is on the clipboard, ready to paste.
 
 If the sandbox blocks either command, give me this line to run myself:
 
 ```
-! { printf ':robot: says...\n\n'; cat .octo-stack/code-review-pr/pr-<number>.md; } | pbcopy && gh pr comment <number> --web
+! { printf ':robot: says...\n\n'; cat .nogit/code-review-pr/pr-<number>.md; } | pbcopy && gh pr comment <number> --web
 ```
 
 > [!CAUTION]

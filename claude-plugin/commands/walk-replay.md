@@ -9,11 +9,11 @@ What I gave you: $ARGUMENTS
 
 ## Find the walk
 
-A walk is one file, `.octo-stack/walk-through/{slug}.md`. Resolve `$ARGUMENTS` to one:
+A walk is one file, `.nogit/walk-through/{slug}.md`. Resolve `$ARGUMENTS` to one:
 
-- **A slug** (e.g. `pr-247`, `commit-a1b2c3d`, `login-auth-flow`) → read `.octo-stack/walk-through/{slug}.md`.
+- **A slug** (e.g. `pr-247`, `commit-a1b2c3d`, `login-auth-flow`) → read `.nogit/walk-through/{slug}.md`.
 - **A file path** (anything with a `/`) → read that file.
-- **Empty** → list the files in `.octo-stack/walk-through/`. If there's exactly one, use it. If there are several, show them and ask which; stop until I pick. If there are none, tell me there's nothing to replay and stop.
+- **Empty** → list the files in `.nogit/walk-through/`. If there's exactly one, use it. If there are several, show them and ask which; stop until I pick. If there are none, tell me there's nothing to replay and stop.
 
 If nothing resolves, or the file has no `## Step` sections, say so and stop — don't invent steps.
 

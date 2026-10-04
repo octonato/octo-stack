@@ -35,5 +35,5 @@ The single hard requirement: the agent must **stay alive and accessible** so I c
 A brief completion notification is welcome; a report is not.
 
 - **When it completes, at most one short line** — e.g. `bg task "<label>" finished — open it to read`. **Never** paste, summarize, or quote its result into this thread, on completion or when I ask. If I ask whether it's done, a bare "still running" / "finished — open it" is the whole answer.
-- **Store the output only if the task asked for it.** If `$ARGUMENTS` says to save the output (e.g. "…and save it", "…write it down"), have the agent write it to `.octo-stack/bg/<slug>.md`. `<slug>` is a short kebab-case name for the task. That's the agent's doing, not a report from you.
+- **Store the output only if the task asked for it.** If `$ARGUMENTS` says to save the output (e.g. "…and save it", "…write it down"), have the agent write it to `.nogit/bg/<slug>.md`. `<slug>` is a short kebab-case name for the task. That's the agent's doing, not a report from you.
 - If the agent ran a chained slash command that stores its own output (like `/oc:walk-through` in auto mode), that stored summary is the output — I'll read it or open the subagent. Don't echo it here.
