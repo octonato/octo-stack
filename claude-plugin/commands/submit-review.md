@@ -1,29 +1,105 @@
 ---
-description: Submit PR feedback as a pending GitHub review with inline comments on the diff — never auto-submits
-argument-hint: <PR number>
+description: Review a colleague's PR, or the current branch, with /pr-review-toolkit:review-pr and save only the findings to .nogit/. Offers to open them as one PR comment on GitHub, never submits.
+argument-hint: [PR number or URL]
 ---
 
-Submit the PR feedback as a **pending** GitHub review with inline comments on the diff.
+Review a colleague's PR, or the current branch, and write the findings to `.nogit/`.
 
-PR number: $ARGUMENTS
+PR: $ARGUMENTS
 
-Steps:
-1. Gather the review findings, taking the first source that has them:
-   - `.nogit/walk-through/pr-<number>.md`. A walk-through saved with `-r`/`--review` carries its findings this way.
-   - `.nogit/pr-feedback.md`, when the walk-through has nothing for the PR.
-   - The current conversation, when none of these has anything.
-2. Get the PR head commit SHA via `gh api repos/{owner}/{repo}/pulls/{pr_number} --jq '.head.sha'`.
-3. Get the full diff via `git diff <merge-base>...HEAD` to identify the correct file paths and line numbers for each comment.
-4. Build a JSON payload with:
-   - `commit_id`: the head SHA
-   - `body`: a short summary of the review (optional)
-   - `comments`: array of objects, each with `path` (file path relative to repo root), `line` (line number in the new file), and `body` (the comment text in markdown)
-   - Do NOT include an `event` field — omitting it defaults to PENDING so the user can review before submitting.
-5. Use GitHub suggestion syntax (` ```suggestion ` blocks) in comment bodies where a concrete code fix is proposed.
-6. Write the payload to a temp file and submit via: `gh api repos/{owner}/{repo}/pulls/{pr_number}/reviews --method POST --input <payload_file>`
-7. Tell the user the review is pending with a count of comments, and that they can review and submit it in the browser.
+## 1. Resolve the scope
 
-Important:
-- Use a Python script to build the JSON payload — multi-line comment bodies with code suggestions are hard to handle inline in shell.
-- Each comment's `line` must refer to a line in the **new version** of the file as shown in the diff.
-- Only include comments that are actionable: bugs, security issues, design questions, concrete improvement suggestions.
+If `$ARGUMENTS` names a PR:
+
+1. Run `gh pr view <pr> --json number,url,headRefName,baseRefName`.
+2. Check that the current branch is the PR's head branch.
+   If it is not, ask me whether to run `gh pr checkout <pr>`.
+   Run it only if I approve and `git status` shows a clean tree. Otherwise stop.
+
+If `$ARGUMENTS` is empty, review the current branch:
+
+1. Run `gh pr view --json number,url,headRefName,baseRefName`.
+   It finds the PR of the current branch.
+2. If there is no PR, take the base from `git symbolic-ref --short refs/remotes/origin/HEAD`.
+   Strip the `origin/` prefix to get `<baseRefName>`.
+
+Then, in both cases:
+
+1. Run `git fetch origin <baseRefName>`.
+   The scope is `git diff origin/<baseRefName>...HEAD`.
+   If the diff is empty, say `Nothing to review.` and stop.
+2. If `git status` shows uncommitted changes, tell me they are not part of the review.
+3. Set `<name>` to `pr-<number>` when there is a PR.
+   Otherwise, set it to the current branch name with each `/` replaced by `-`.
+
+## 2. Run the review
+
+Invoke the `pr-review-toolkit:review-pr` skill with the Skill tool.
+Pass `code comments tests errors types parallel` as its arguments.
+Do not pass `simplify`. The code-simplifier agent edits code.
+
+Before you invoke it, state the scope: PR `<number>` if there is one, diff `origin/<baseRefName>...HEAD`.
+Tell each review agent to use that diff, to return located findings, and never to edit files.
+Tell them to explain each problem and not to propose a fix.
+
+## 3. Check the findings
+
+Read the code for each finding.
+Drop a finding when the code does not confirm it.
+Merge findings that point at the same problem.
+
+## 4. Write the findings
+
+Write `.nogit/submit-review/<name>.md`.
+Run `mkdir -p .nogit/submit-review` first.
+If the file exists, rename it to `<name>.<YYYY-MM-DD>.md` before you write.
+
+The file holds the findings and nothing else.
+Leave out all of these:
+
+- a title, an intro, or a summary
+- the names of the agents or skills that ran
+- strengths, praise, or what is solid
+- counts, severity totals, or an action plan
+- findings the code did not confirm
+- fixes, suggested changes, or ` ```suggestion ` blocks
+
+Write each finding in this shape, worst first:
+
+```markdown
+### <short title>
+
+`<path>:<line>`
+
+<what is wrong, in one or two sentences>
+
+<why it is a problem: the failure it causes or the rule it breaks>
+```
+
+Point out the problem only. Do not say how to fix it.
+Separate findings with a blank line.
+Write for the PR author. Follow the "How to write" rules in CLAUDE.md.
+
+If no finding survives step 3, write no file. Tell me there are no findings and stop.
+
+## 5. Offer to publish
+
+Give me the path of the file and the number of findings.
+If there is no PR, stop here.
+Otherwise, ask whether to open it as a PR comment on GitHub.
+
+If I approve:
+
+1. Copy the comment to the clipboard. It starts with the line `:robot: says...`, then a blank line, then the file:
+   `{ printf ':robot: says...\n\n'; cat .nogit/submit-review/<name>.md; } | pbcopy`
+2. Open the comment form: `gh pr comment <number> --web`.
+3. Tell me the comment is on the clipboard, ready to paste.
+
+If the sandbox blocks either command, give me this line to run myself:
+
+```
+! { printf ':robot: says...\n\n'; cat .nogit/submit-review/<name>.md; } | pbcopy && gh pr comment <number> --web
+```
+
+> [!CAUTION]
+> NEVER post the comment. Do not run `gh pr comment` without `--web`. Do not call the GitHub API to create a comment or a review. I review and submit it myself.
