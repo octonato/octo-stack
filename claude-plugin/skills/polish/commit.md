@@ -4,7 +4,7 @@ This procedure commits one phase. The `polish` skill uses it. The state file for
 
 The caller names the phase, and may give a note for the commit message.
 
-The message file is `.octo-stack/polish/{slug}.commit-msg`.
+The message file is `.nogit/polish/{slug}.commit-msg`.
 
 ## Write the message
 
@@ -32,7 +32,7 @@ Rules for the body:
 
 ## Commit
 
-Stage only the files the phase changed. Never stage `.octo-stack/`.
+Stage only the files the phase changed. Never stage `.nogit/`.
 
 Commit with `git commit -F {message file}`, then delete the message file. Never edit the message file in this step. Never push.
 

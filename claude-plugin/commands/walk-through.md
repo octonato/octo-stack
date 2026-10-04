@@ -1,5 +1,5 @@
 ---
-description: Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to .octo-stack/walk-through/ to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
+description: Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to .nogit/walk-through/ to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks.
 argument-hint: [a code path/behavior, OR a commit hash, OR a PR number] [-i|--interactive] [-r|--review]
 ---
 
@@ -91,7 +91,7 @@ This is the **default** — it runs whenever `-i` is **not** passed. Do not walk
 - Commit hash / ref → `commit-<short-sha>` (e.g. `commit-a1b2c3d`).
 - Code path / behavior → a short kebab-case slug of the topic (e.g. `login-auth-flow`).
 
-**One file per walk.** The overview and every step go in a single file, `.octo-stack/walk-through/{slug}.md` — not one file per step. Run `mkdir -p .octo-stack/walk-through` first. Read the session id with `echo $CLAUDE_CODE_SESSION_ID`, and open the file with YAML frontmatter:
+**One file per walk.** The overview and every step go in a single file, `.nogit/walk-through/{slug}.md` — not one file per step. Run `mkdir -p .nogit/walk-through` first. Read the session id with `echo $CLAUDE_CODE_SESSION_ID`, and open the file with YAML frontmatter:
 
 - `title` — `Walk-through {slug}`
 - `date` — today, as `YYYY-MM-DD`

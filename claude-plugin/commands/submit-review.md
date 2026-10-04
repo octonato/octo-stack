@@ -9,8 +9,8 @@ PR number: $ARGUMENTS
 
 Steps:
 1. Gather the review findings, taking the first source that has them:
-   - `.octo-stack/walk-through/pr-<number>.md`. A walk-through saved with `-r`/`--review` carries its findings this way.
-   - `.octo-stack/pr-feedback.md`, when the walk-through has nothing for the PR.
+   - `.nogit/walk-through/pr-<number>.md`. A walk-through saved with `-r`/`--review` carries its findings this way.
+   - `.nogit/pr-feedback.md`, when the walk-through has nothing for the PR.
    - The current conversation, when none of these has anything.
 2. Get the PR head commit SHA via `gh api repos/{owner}/{repo}/pulls/{pr_number} --jq '.head.sha'`.
 3. Get the full diff via `git diff <merge-base>...HEAD` to identify the correct file paths and line numbers for each comment.

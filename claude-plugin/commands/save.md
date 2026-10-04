@@ -1,9 +1,9 @@
 ---
-description: Summarize the research/analysis from this session into .octo-stack/
+description: Summarize the research/analysis from this session into .nogit/
 argument-hint: [optional: what to summarize, or a title hint]
 ---
 
-Summarize the research, analysis, or findings from our session into one Markdown summary. Write it to `.octo-stack/` in the current working directory.
+Summarize the research, analysis, or findings from our session into one Markdown summary. Write it to `.nogit/` in the current working directory.
 
 I often pull a summary into a **new session in another repo**, so it must be **self-contained**: it has to make sense to a reader (or a fresh Claude) who has *no access to this repo* and *none of our conversation history*. Don't refer to "the file above", "as we discussed", or local paths the other repo won't have — spell out the context, names, and conclusions inline.
 
@@ -18,7 +18,7 @@ I often pull a summary into a **new session in another repo**, so it must be **s
 
 2. Read the session id: `echo $CLAUDE_CODE_SESSION_ID`.
 
-3. Run `mkdir -p .octo-stack`. Write the summary to `.octo-stack/<name>.md`, where `<name>` is the kebab-case title. If the name is taken, add a numeric suffix. Never overwrite.
+3. Run `mkdir -p .nogit`. Write the summary to `.nogit/<name>.md`, where `<name>` is the kebab-case title. If the name is taken, add a numeric suffix. Never overwrite.
 
 4. Open the file with YAML frontmatter, then the body shaped as below:
    - `title` — from step 1
