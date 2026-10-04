@@ -67,14 +67,13 @@ Commands are invoked with the `oc:` prefix — `/oc:walk-through`, `/oc:polish`,
 | `/oc:check-inbox` | Check the code for TODO-AI / FIXME-AI / QUESTION-AI comments left for Claude — fix or answer each one, and remove the tag once the user approves |
 | `/oc:checks` | Run the session checks — comment-reviewer (comment rules) and proof-reader (plain-English rules) in parallel over the changed code — and report located findings. Changes nothing; /oc:checks-fix applies them. |
 | `/oc:checks-fix` | Run the session checks — comment-reviewer and proof-reader in parallel — then apply every finding through the fixer agent. Add -i/--interactive to pick which findings to apply. |
-| `/oc:code-review-pr` | Review a colleague's PR with /pr-review-toolkit:review-pr and save only the change requests to .nogit/. Offers to open them as a PR comment on GitHub, never submits. |
 | `/oc:gh.issue-create` | Create a GitHub issue from a natural language description. Opens in browser for review before submission. |
 | `/oc:proceed` | Implement what we discussed in this session, then run comment-reviewer and proof-reader in parallel and apply every finding through the fixer agent. |
 | `/oc:resolve-conflicts` | Resolve git merge conflicts — apply the clear ones with a brief rationale, ask about the ambiguous ones. Add -i/--interactive to get a report on why the conflicts exist and approve each chunk before it is applied. |
 | `/oc:retry` | Re-attempt the action the user just rejected, optionally with an adaptation |
 | `/oc:save` | Summarize the research/analysis from this session into .nogit/ |
 | `/oc:subagent` | Spawn a background agent to run a task in parallel while the user keeps working — it stays alive and accessible for the user to open, read, and interact with; the main thread gets only a short launch/finish note, never the agent's report. Pass a plain task, or another slash command (e.g. /oc:subagent /oc:walk-through 247 -r) to run that command in the background. |
-| `/oc:submit-review` | Submit PR feedback as a pending GitHub review with inline comments on the diff — never auto-submits |
+| `/oc:submit-review` | Review a colleague's PR, or the current branch, with /pr-review-toolkit:review-pr and save only the findings to .nogit/. Offers to open them as one PR comment on GitHub, never submits. |
 | `/oc:walk-replay` | Replay a walk-through saved by /oc:walk-through — present each step verbatim in the terminal, one at a time, advancing when the user says "go ahead". Presents the steps as written; it does not summarize them. |
 | `/oc:walk-through` | Walk-through of a code path or a set of changes, broken into logical steps. By default it saves the whole walk to .nogit/walk-through/ to read later; add -i/--interactive to walk through it one step at a time instead. Add -r/--review to fold in located review findings per step, including the comment and plain-English rule checks. |
 
@@ -111,7 +110,7 @@ The plugin keeps its files in `.nogit/`, in the current working directory:
 
 - `.nogit/*.md`: summaries saved with `/oc:save`
 - `.nogit/walk-through/`: walk-throughs
-- `.nogit/code-review-pr/`: change requests from `/oc:code-review-pr`
+- `.nogit/submit-review/`: review findings from `/oc:submit-review`
 - `.nogit/bg/`: output of background agents started with `/oc:subagent`
 - `.nogit/polish/`: polish review state
 
